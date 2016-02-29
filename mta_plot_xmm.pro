@@ -9,7 +9,7 @@ PRO MTA_PLOT_XMM, PLOTX=plotx
 ;   upate XMM Plot: mta_xmm_plot.gif
 ;
 ;       12. Jul 2003 BDS
-;       last updated Nov 02, 2015   ti
+;       last updated Feb 29, 2016   ti
 ;
 ;--------------------------------------------------------------------
 ;
@@ -204,7 +204,10 @@ jday     = time_stamp_arc/86400.-2190.0-366.-365.-365.-365.-366. -365. ; # days 
 atime    = systime()
 atemp    = strsplit(atime,/extract)
 dyear    = fix(atemp[4]) - 2010             ; ---- how many years from 2010?
-ladd     = dyear /4                         ; ---- how many leap year between 2010 and this year?
+;
+;-- check how many leap years between 2010 and this year (not including this year)
+;
+ladd     = (dyear + 1) / 4                       
 jday     = jday - (365 * dyear + ladd)
 
 time     = jday - 1.

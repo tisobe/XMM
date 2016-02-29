@@ -7,7 +7,7 @@ PRO MTA_PLOT_XMM_TLE, XMIN, XMAX, PLOTX=plotx
 ;  xmm_rad plot
 ; 21.jul2004 bds
 ;
-;   last update: Nov 02, 2015   ti
+;   last update: FEb 29, 2016   ti
 ;
 ;------------------------------------------------------------------------
 ;
@@ -47,9 +47,11 @@ time     = (sec/60./60./24.)-2190.0-366.-365.-365.-365.-366.-365. ; 2010 days
 atime    = systime()
 atemp    = strsplit(atime,/extract)
 dyear    = fix(atemp[4]) - 2010             ; ---- how many years from 2010?
-ladd     = dyear /4                         ; ---- how many leap year between 2010 and this year?
-;time     = time - (365 * dyear + ladd) - 1
-time     = time - (365 * dyear + ladd) 
+;
+;-- check how many leap years between 2010 and this year (not including this year)
+;
+ladd     = (dyear + 1) / 4                  
+time     = time - (365 * dyear + ladd) - 1
 
 nel      = n_elements(sec)
 es       = lonarr(nel)
